@@ -62,7 +62,8 @@ participant Shipper extends User {
 /**
  * A Farmer participant
  */
-participant Vendor extends User {    
+participant Vendor extends User { 
+  o String licenceId   
 }
 
 /**
@@ -74,7 +75,7 @@ participant Regulator extends User {
 
 
 /**
- * An Animal asset, which is related to a Field
+ * An Animal asset, which is related to a Farmer
  */
 asset Animal identified by animalId {
     o String animalId
@@ -89,7 +90,7 @@ asset Animal identified by animalId {
  */
 asset Market identified by marketId {
     o String marketId
-    o Vendor owner
+    --> Vendor owner
     o String name
     o String address
     o String country
@@ -97,7 +98,7 @@ asset Market identified by marketId {
 }
 
 /**
- * An Animal asset, which is related to a Field
+ * A Shipment asset, which is related to a Shipper
  */
 asset Shipment identified by shipmentId {
     o String shipmentId
@@ -105,7 +106,7 @@ asset Shipment identified by shipmentId {
     o DateTime departureDate
     o String arrivalLocation
     o DateTime arrivalDate
-    --> Shipper driver
+    --> Shipper Shipper
 }
 
 /**
@@ -114,7 +115,7 @@ asset Shipment identified by shipmentId {
 asset Meat identified by meatId {
     o String meatId
     o AnimalPart part
-    --> Shipment Shipment
+    --> Shipment Shipment 
     --> Market destination 
     --> Animal animal
 }
