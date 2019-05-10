@@ -17,9 +17,13 @@
  */
 
 namespace com.biz
-enum AnimalType {
-  o YOUNG_BULL
-  o OLD_BULL
+/**
+ * The Animal type
+ */
+enum AnimalPart {
+  o CHEST
+  o LEG
+  o RIBS
 }
 
 /**
@@ -28,17 +32,6 @@ enum AnimalType {
 enum MovementStatus {
   o IN_FIELD
   o IN_TRANSIT
-}
-
-
-
-/**
- * The production type associated with an animal
- */
-enum ProductionType {
-  o MEAT
-  o BREEDING
-  o OTHER
 }
 
 /**
@@ -54,11 +47,22 @@ abstract participant User identified by email {
  * A Farmer participant
  */
 participant Farmer extends User {
-    o String address1
-    o String address2
-    o String county
+    o String address
+    o String country
     o String postcode
     --> Business business optional
+}
+
+/**
+ * A Farmer participant
+ */
+participant Shipper extends User {    
+}
+
+/**
+ * A Farmer participant
+ */
+participant Vendor extends User {    
 }
 
 /**
@@ -67,25 +71,52 @@ participant Farmer extends User {
 participant Regulator extends User {
 }
 
-/**
- * A Field asset. A Field is related to a list of animals
- */
-asset Field identified by cph {
-  o String cph
-  o String name
-  --> Business business
-}
+
 
 /**
  * An Animal asset, which is related to a Field
  */
 asset Animal identified by animalId {
     o String animalId
-    o AnimalType species
+    o Integer age
+    o String race
     o MovementStatus movementStatus
-    o ProductionType productionType
-    --> Field location optional
     --> Farmer owner
+}
+
+/**
+ * An Animal asset, which is related to a Field
+ */
+asset Market identified by marketId {
+    o String marketId
+    o Vendor owner
+    o String name
+    o String address
+    o String country
+    o String zipcode
+}
+
+/**
+ * An Animal asset, which is related to a Field
+ */
+asset Shipment identified by shipmentId {
+    o String shipmentId
+    o String departureLocation
+    o DateTime departureDate
+    o String arrivalLocation
+    o DateTime arrivalDate
+    --> Shipper driver
+}
+
+/**
+ * A Meat asset, which is related to an Animal
+ */
+asset Meat identified by meatId {
+    o String meatId
+    o AnimalPart part
+    --> Shipment Shipment
+    --> Market destination 
+    --> Animal animal
 }
 
 /**
@@ -110,20 +141,6 @@ abstract transaction AnimalMovement {
     --> Animal animal
     --> Business from
     --> Business to
-}
-
-/**
- * A transaction type for an animal leaving a farm
- */
-transaction AnimalMovementDeparture extends AnimalMovement {
-  --> Field fromField
-}
-
-/**
- * A transaction type for an animal arriving at a field
- */
-transaction AnimalMovementArrival extends AnimalMovement {
-  --> Field arrivalField
 }
 
 transaction SetupDemo  {
