@@ -27,3 +27,19 @@ rule NetworkAdminSystem {
     resource: "org.hyperledger.composer.system.**"
     action: ALLOW
 }
+
+rule LivestockFarmer {
+  description: "LivestockFarmer access to system ressources"
+  participant: "org.hyperledger.composer.system.NetworkLivestockFarmer"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule Carrier {
+  description: "Carrier access to system ressources"
+  participant: "org.hyperledger.composer.system.NetworkCarrier"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
