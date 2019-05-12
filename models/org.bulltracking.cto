@@ -72,10 +72,6 @@ participant Vendor extends User {
 participant Regulator extends User {
 }
 
-participant Carrier extends User {
-
-}
-
 /**
  * An Animal asset, which is related to a Farmer
  */
