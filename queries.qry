@@ -1,0 +1,13 @@
+query selectAnimalMovementFromAnimalId {
+  description: "Select all AnimalMovement from an AnimalId"
+  statement:
+      SELECT com.biz.AnimalMovement
+          WHERE (animal.animalId == _$animalId)
+}
+
+query selectAnimalMovementFromAnimal {
+  description: "Select all AnimalMovement from an Animal"
+  statement:
+      SELECT com.biz.AnimalMovement
+          WHERE (animal == _$animal)
+}
