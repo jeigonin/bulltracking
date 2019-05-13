@@ -83,6 +83,7 @@ asset Animal identified by animalId {
     o String race
     o MovementStatus movementStatus
     --> Farmer owner
+    --> Shipment shipment optional
 }
 
 /**
@@ -102,11 +103,11 @@ asset Market identified by marketId {
  */
 asset Shipment identified by shipmentId {
     o String shipmentId
-    o String departureLocation
     o DateTime departureDate optional
-    o String arrivalLocation optional
     o DateTime arrivalDate optional
     --> Shipper shipper
+    --> Business businessDeparture
+    --> Market marketArrival optional
 }
 
 /**
@@ -115,8 +116,7 @@ asset Shipment identified by shipmentId {
 asset Meat identified by meatId {
     o String meatId
     o AnimalPart part
-    --> Shipment Shipment
-    --> Market destination
+    --> Vendor butcher
     --> Animal animal
 }
 
@@ -140,22 +140,18 @@ asset Business identified by sbi {
 transaction AnimalDeparture {
   o String[] logs optional
     --> Animal animal
-    --> Business from
-    --> Shipper shipper
+    --> Shipment shipment
 }
 
-abstract transaction AnimalArrival {
+transaction AnimalArrival {
   o String[] logs optional
-    --> Shipment shipmentId
-    --> Shipper shipperId
+    --> Animal animal
     --> Market marketReceiver
 }
 
-abstract transaction AnimalRetail {
+transaction AnimalRetail {
   o String[] logs optional
-    --> Shipment shipmentId
-    --> Vendor Vendor
-    --> Vendor Meat
+    --> Meat meat
 }
 
 
