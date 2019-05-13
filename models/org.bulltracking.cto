@@ -103,7 +103,7 @@ asset Market identified by marketId {
  */
 asset Shipment identified by shipmentId {
     o String shipmentId
-    o DateTime departureDate optional
+    o DateTime departureDate
     o DateTime arrivalDate optional
     --> Shipper shipper
     --> Business businessDeparture
