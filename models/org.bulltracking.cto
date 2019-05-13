@@ -32,6 +32,8 @@ enum AnimalPart {
 enum MovementStatus {
   o IN_FIELD
   o IN_TRANSIT
+  o IN_MARKET
+  o IN_STORE
 }
 
 /**
@@ -56,14 +58,14 @@ participant Farmer extends User {
 /**
  * A Farmer participant
  */
-participant Shipper extends User {    
+participant Shipper extends User {
 }
 
 /**
  * A Farmer participant
  */
-participant Vendor extends User { 
-  o String licenceId   
+participant Vendor extends User {
+  o String licenceId
 }
 
 /**
@@ -101,10 +103,10 @@ asset Market identified by marketId {
 asset Shipment identified by shipmentId {
     o String shipmentId
     o String departureLocation
-    o DateTime departureDate
-    o String arrivalLocation
-    o DateTime arrivalDate
-    --> Shipper Shipper
+    o DateTime departureDate optional
+    o String arrivalLocation optional
+    o DateTime arrivalDate optional
+    --> Shipper shipper
 }
 
 /**
@@ -113,8 +115,8 @@ asset Shipment identified by shipmentId {
 asset Meat identified by meatId {
     o String meatId
     o AnimalPart part
-    --> Shipment Shipment 
-    --> Market destination 
+    --> Shipment Shipment
+    --> Market destination
     --> Animal animal
 }
 
@@ -135,12 +137,27 @@ asset Business identified by sbi {
 /**
  * An abstract transaction type for animal movements
  */
-abstract transaction AnimalMovement {
+transaction AnimalDeparture {
   o String[] logs optional
     --> Animal animal
     --> Business from
-    --> Business to
+    --> Shipper shipper
 }
+
+abstract transaction AnimalArrival {
+  o String[] logs optional
+    --> Shipment shipmentId
+    --> Shipper shipperId
+    --> Market marketReceiver
+}
+
+abstract transaction AnimalRetail {
+  o String[] logs optional
+    --> Shipment shipmentId
+    --> Vendor Vendor
+    --> Vendor Meat
+}
+
 
 transaction SetupDemo  {
 }
