@@ -1,13 +1,41 @@
-query selectAnimalMovementFromAnimalId {
+query selectAnimalArrivalFromAnimalId {
   description: "Select all AnimalArrival from an AnimalId"
   statement:
       SELECT com.biz.AnimalArrival
           WHERE (animal.animalId == _$animalId)
 }
 
-query selectAnimalMovementFromAnimal {
+query selectAnimalArrivalFromAnimal {
   description: "Select all AnimalArrival from an Animal"
   statement:
       SELECT com.biz.AnimalArrival
           WHERE (animal == _$animal)
+}
+
+query selectAnimalDepartureFromAnimalId {
+  description: "Select all AnimalDeparture from an AnimalId"
+  statement:
+      SELECT com.biz.AnimalDeparture
+          WHERE (animal.animalId == _$animalId)
+}
+
+query selectAnimalDepartureFromAnimal {
+  description: "Select all AnimalDeparture from an Animal"
+  statement:
+      SELECT com.biz.AnimalDeparture
+          WHERE (animal == _$animal)
+}
+
+query selectAnimalRetailFromAnimalId {
+  description: "Select all AniamlRetail from an AnimalId"
+  statement:
+      SELECT com.biz.AnimalRetail
+          WHERE (meat.meatId == _$meatId)
+}
+
+query selectAnimalRetailFromAnimal {
+  description: "Select all AnimalRetail from an Animal"
+  statement:
+      SELECT com.biz.AnimalRetail
+          WHERE (meat == _$meat)
 }
