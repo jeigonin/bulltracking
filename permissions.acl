@@ -29,7 +29,7 @@ rule NetworkAdminSystem {
 }
 
 rule Farmer {
-  description: "Farmer access to system ressources"
+  description: "Farmer access to his ressources"
   participant: "com.biz.Farmer"
   operation: ALL
   resource: "com.biz.Farmer"
@@ -37,11 +37,75 @@ rule Farmer {
 }
 
 rule Shipper {
-  description: "Shipper access to system ressources"
+  description: "Shipper access to his ressources"
   participant: "com.biz.Shipper"
   operation: ALL
-  resource: "com.biz.Farmer"
+  resource: "com.biz.Shipper"
   action: ALLOW
 }
+
+rule Vendor {
+  description: "Vendor access to his ressource"
+  participant: "com.biz.Vendor"
+  operation: ALL
+  resource: "com.biz.Vendor"
+  action: ALLOW
+}
+
+rule Regulator {
+  description: "Regulator access to his ressource"
+  participant: "com.biz.Regulator"
+  operation: ALL
+  resource: "com.biz.Regulator"
+  action: ALLOW
+}
+
+rule FarmerCreateReadAnimal {
+  description: "Farmer can create read Animal"
+  participant: "com.biz.Farmer"
+  operation: CREATE,READ
+  resource: "com.biz.Animal"
+  action: ALLOW
+}
+rule FarmerCreateReadBusiness {
+  description: "Farmer can create, read his Business"
+  participant: "com.biz.Farmer"
+  operation: CREATE,READ
+  resource: "com.biz.Business"
+  action: ALLOW
+}
+
+rule VendorCreateReadMeat {
+  description: "Vendor can read, create meat"
+  participant: "com.biz.Vendor"
+  operation: CREATE, READ
+  resource: "com.biz.Meat"
+  action: ALLOW
+}
+rule VendorCreateReadMarket {
+  description: "Vendor can read, create Market"
+  participant: "com.biz.Vendor"
+  operation: CREATE, READ
+  resource: "com.biz.Market"
+  action: ALLOW
+}
+
+rule RegulatorReadMeat {
+  description: "Regulator can read Meat"
+  participant: "com.biz.Regulator"
+  operation: READ
+  resource: "com.biz.Meat"
+  action: ALLOW
+}
+
+rule ShipperCreateReadShipment {
+  description: "Shipper can read, create Shipment"
+  participant: "com.biz.Shipper"
+  operation: CREATE, READ
+  resource: "com.biz.Shipment"
+  action: ALLOW
+}
+
+
 
 //TODO : ACL A FINIR
