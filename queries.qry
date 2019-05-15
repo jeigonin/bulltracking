@@ -33,9 +33,22 @@ query selectAnimalRetailFromAnimalId {
           WHERE (meat.meatId == _$meatId)
 }
 
-query selectAnimalRetailFromAnimal {
-  description: "Select all AnimalRetail from an Animal"
+query selectAnimalRetailFromMeat {
+  description: "Select all AnimalRetail from an Meat"
   statement:
       SELECT com.biz.AnimalRetail
           WHERE (meat == _$meat)
+}
+query selectAnimalRetailFromMeatId {
+  description: "Select all AnimalRetail from an MeatId"
+  statement:
+      SELECT com.biz.AnimalRetail
+          WHERE (meat.meatId == _$meatId)
+}
+
+query selectMeatFromAnimalId {
+  description: "Select all meat from animalId"
+  statement:
+      SELECT com.biz.Meat
+          WHERE (animal.animalId == _$animalId)
 }
