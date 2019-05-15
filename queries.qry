@@ -52,3 +52,9 @@ query selectMeatFromAnimalId {
       SELECT com.biz.Meat
           WHERE (animal.animalId == _$animalId)
 }
+query selectMeatFromVendorId {
+  description: "Select all meat from vendorId"
+  statement:
+      SELECT com.biz.Meat
+          WHERE (butcher.licenceId == _$vendorLicenceId)
+}
