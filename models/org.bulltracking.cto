@@ -153,3 +153,5 @@ transaction AnimalRetail {
   o String[] logs optional
     --> Meat meat
 }
+transaction SetupDemo  {
+}
