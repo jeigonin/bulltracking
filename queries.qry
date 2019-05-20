@@ -1,8 +1,10 @@
-query selectAnimalArrivalFromAnimalId {
-  description: "Select all AnimalArrival from an AnimalId"
+// TX
+
+//ANIMAL ARRIVAL
+query selectAllAnimalArrival {
+  description: "Select all AnimalArrival"
   statement:
       SELECT com.biz.AnimalArrival
-          WHERE (animal.animalId == _$animalId)
 }
 
 query selectAnimalArrivalFromAnimal {
@@ -11,50 +13,134 @@ query selectAnimalArrivalFromAnimal {
       SELECT com.biz.AnimalArrival
           WHERE (animal == _$animal)
 }
-
-query selectAnimalDepartureFromAnimalId {
-  description: "Select all AnimalDeparture from an AnimalId"
+query selectAnimalArrivalFromMarketReceiver {
+  description: "Select all AnimalArrival from a Market Receiver"
   statement:
-      SELECT com.biz.AnimalDeparture
-          WHERE (animal.animalId == _$animalId)
+      SELECT com.biz.AnimalArrival
+          WHERE (marketReceiver == _$marketReceiver)
 }
 
+// ANIMAL DEPARTURE
+query selectAllAnimalDeparture {
+  description: "Select all AnimalDeparture"
+  statement:
+      SELECT com.biz.AnimalDeparture
+}
 query selectAnimalDepartureFromAnimal {
   description: "Select all AnimalDeparture from an Animal"
   statement:
       SELECT com.biz.AnimalDeparture
           WHERE (animal == _$animal)
 }
+query selectAnimalDepartureFromShipment {
+  description: "Select all AnimalDeparture from an shipment"
+  statement:
+      SELECT com.biz.AnimalDeparture
+          WHERE (shipment == _$shipment)
+}
+// ANIMAL RETAIL
 
-query selectAnimalRetailFromAnimalId {
-  description: "Select all AniamlRetail from an AnimalId"
+query selectAllAnimalRetail {
+  description: "Select all AnimalRetail"
   statement:
       SELECT com.biz.AnimalRetail
-          WHERE (meat.meatId == _$meatId)
 }
-
 query selectAnimalRetailFromMeat {
-  description: "Select all AnimalRetail from an Meat"
+  description: "Select all AnimalRetail from a Meat"
   statement:
       SELECT com.biz.AnimalRetail
           WHERE (meat == _$meat)
 }
-query selectAnimalRetailFromMeatId {
-  description: "Select all AnimalRetail from an MeatId"
+
+// ASSET FROM RELATION
+
+// MEAT 
+query selectMeatFromAnimal {
+  description: "Select all meat from animal"
   statement:
-      SELECT com.biz.AnimalRetail
-          WHERE (meat.meatId == _$meatId)
+      SELECT com.biz.Meat
+          WHERE (animal == _$animal)
+}
+query selectMeatFromVendor {
+  description: "Select all meat from vendor"
+  statement:
+      SELECT com.biz.Meat
+          WHERE (butcher == _$vendor)
 }
 
-query selectMeatFromAnimalId {
-  description: "Select all meat from animalId"
+// ANIMAL 
+
+query selectAnimalFromFarmer {
+  description: "Select animal from a farmer"
   statement:
-      SELECT com.biz.Meat
-          WHERE (animal.animalId == _$animalId)
+      SELECT com.biz.Animal
+          WHERE (owner == _$_owner)
 }
-query selectMeatFromVendorId {
-  description: "Select all meat from vendorId"
+
+query selectAnimalFromShipment {
+  description: "Select animal from a shipment"
   statement:
-      SELECT com.biz.Meat
-          WHERE (butcher.licenceId == _$vendorLicenceId)
+      SELECT com.biz.Animal
+          WHERE (shipment == _$shipment)
+}
+
+// MARKET
+
+query selectMarketFromOwner {
+  description: "Select market from from owner"
+  statement:
+      SELECT com.biz.Market
+          WHERE (owner == _$_owner)
+}
+
+// SHIPMENT
+
+query selectShipmentFromShipper {
+  description: "Select shipment from from shipper"
+  statement:
+      SELECT com.biz.Shipment
+          WHERE (shipper == _$shipper)
+}
+
+query selectShipmentFromBusinessDeparture {
+  description: "Select shipment from from business departure"
+  statement:
+      SELECT com.biz.Shipment
+          WHERE (businessDeparture == _$businessDeparture)
+}
+
+query selectShipmentFromMarketArrival {
+  description: "Select shipment from from marketArrival"
+  statement:
+      SELECT com.biz.Shipment
+          WHERE (marketArrival == _$marketArrival)
+}
+
+
+// BUSINESS
+
+query selectBusinessFromFarmer {
+  description: "Select business from from farmer"
+  statement:
+      SELECT com.biz.Business
+          WHERE (owner == _$_owner)
+}
+
+// PARTICIPANT
+
+// FARMER
+query selectFarmerFromBusiness{
+  description:"Select farmer from its business"
+  statement:
+      SELECT com.biz.Farmer
+          WHERE (business == _$business)
+}
+
+// VENDOR 
+
+query selectVendorFromLicenceId{
+  description:"Select vendor from licend id"
+  statement:
+      SELECT com.biz.Vendor
+          WHERE (licenceId == _$licenceId)
 }
